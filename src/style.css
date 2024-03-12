@@ -8,8 +8,7 @@
   --DarkBlue: hsl(234, 12%, 34%);
   --GrayishBlue: hsl(229, 6%, 66%);
   --LightGray: hsl(0, 0%, 98%);
-  --mobile: 37.5em;
-  --fsize: 1.5rem;
+  --fsize: 1rem;
   --fw-thin: 200;
   --fw-reg: 400;
   --fw-thick: 600;
@@ -27,20 +26,22 @@ html {
 }
 body {
   font-family: 'Poppins', 'Courier New', Courier, monospace;
-  font-size: var(--fsize);
+  font-size: clamp(var(--fsize), 1vw + 0.25rem, 1.8rem);
 }
 
 .main-content {
   background-color: var(--LightGray);
-  padding: 2rem 12.5% 0 12.5%;
+  padding: clamp(2rem, 4vw + 0.5rem, 4rem) clamp(2rem, 4vw + 0.5rem, 15vw);
   width: 100%;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 .main-heading {
   font-weight: var(--fw-reg);
   text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: clamp(2rem, 2.5vw + 0.5rem, 5rem);
+  margin-bottom: 2rem;
   line-height: 1.1;
   color: var(--GrayishBlue);
 }
@@ -53,14 +54,16 @@ body {
   color: var(--GrayishBlue);
   text-align: center;
   margin-bottom: 2rem;
-  font-size: var(--fsize);
+  font-size: clamp(var(--fsize), 1vw + 0.5rem, 2rem);
   font-weight: var(--fw-reg);
 }
 .card-feature {
+  flex-grow: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 8rem);
-  gap: 2rem;
+  grid-template-rows: repeat(4, minmax(6rem, 17%));
+  gap: clamp(2rem, 3vw + 0.5rem, 5rem);
+  align-content: center;
 }
 .card {
   background-color: white;
@@ -81,10 +84,7 @@ body {
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
 }
-.card--1 {
-  grid-column: 2/3;
-  grid-row: 1/3;
-}
+
 .card--1::before {
   background-color: var(--Red);
 }
@@ -96,6 +96,10 @@ body {
 }
 .card--4::before {
   background-color: var(--Blue);
+}
+.card--1 {
+  grid-column: 2/3;
+  grid-row: 1/3;
 }
 .card--2 {
   grid-column: 1/2;
@@ -111,49 +115,29 @@ body {
 }
 
 .card__heading {
-  font-size: var(--fsize);
   font-weight: var(--fw-thick);
   margin-bottom: 1rem;
 }
 .text {
-  font-size: 1.3rem;
   color: var(--GrayishBlue);
+  margin-bottom: 1rem;
 }
 .card__img {
-  width: 4rem;
+  width: clamp(3rem, 3.5vw + 1rem, 10rem);
   align-self: end;
   margin-top: auto;
 }
 
-@media screen and (max-width: 875px) {
-  html {
-    font-size: 55%;
-  }
-  .main-content {
-    padding: 3rem 7.5% 3rem 7.5%;
-  }
-  .main-heading {
-    margin-bottom: 2rem;
-    line-height: 1.3;
-  }
-  .sec-heading {
-    margin-bottom: 3rem;
-  }
-  .card-feature {
-    display: grid;
-    gap: 3rem;
-  }
-
+@media screen and (max-width: 975px) {
   .card-feature {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 16rem);
-    gap: 2rem;
+    grid-template-rows: repeat(2, 1fr);
+    gap: clamp(2rem, 3vw + 0.5rem, 5rem);
   }
   .card--1 {
     grid-column: 1/2;
     grid-row: 1/2;
   }
-
   .card--2 {
     grid-column: 2/3;
     grid-row: 1/2;
@@ -166,28 +150,24 @@ body {
     grid-column: 2/3;
     grid-row: 2/3;
   }
-  .card__img {
-    width: 3rem;
-  }
 }
 
-@media screen and (max-width: 475px) {
-  .card-feature {
-    display: grid;
-    gap: 3rem;
-  }
-
+@media screen and (max-width: 600px) {
   .card-feature {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(4, 16rem);
-    gap: 2rem;
-    padding-bottom: 2rem;
+    grid-template-rows: repeat(4, 1fr);
+    gap: clamp(1rem, 3vw + 0.5rem, 5rem);
+  }
+  .text {
+    margin-bottom: 0;
+  }
+  .card {
+    padding: 1rem;
   }
   .card--1 {
     grid-column: 1/2;
     grid-row: 1/2;
   }
-
   .card--2 {
     grid-column: 1/2;
     grid-row: 2/3;
@@ -199,12 +179,5 @@ body {
   .card--4 {
     grid-column: 1/2;
     grid-row: 4/5;
-  }
-  .main-heading {
-    font-size: 2.3rem;
-  }
-
-  .sec-heading {
-    text-wrap: balance;
   }
 }
